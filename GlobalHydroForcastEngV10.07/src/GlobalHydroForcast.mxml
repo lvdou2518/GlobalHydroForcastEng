@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   minWidth="955" minHeight="600"
+			   initialize="initApp()">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.rpc.soap.WebService;
+			import mx.rpc.events.ResultEvent;
+			
+			private var ws:WebService=new WebService();
+			private var webserviceUrl:String="";
+			public function initApp():void
+			{
+				webserviceUrl="http://localhost:6201/WS.asmx?wsdl";
+				//计算服务
+				ws.wsdl=webserviceUrl;
+				ws.addEventListener(ResultEvent.RESULT,wsOnResult);		
+				
+				ws.getOperation("HelloWorld").send();
+				ws.loadWSDL();
+			}
+			private function wsOnResult(event:ResultEvent):void
+			{
+				
+			}
+		]]>
+	</fx:Script>
+</s:Application>
